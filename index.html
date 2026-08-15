@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>T.O.P 문서 허브</title>
+<style>
+  :root{
+    --ink:#12140f; --ink-2:#4a5147; --ink-3:#858e80;
+    --line:#e3e6e0; --paper:#fafaf7; --card:#fff;
+    --lime:#a3d139; --lime-d:#5f7a1f; --lime-l:#f2f8e4;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+    line-height:1.6; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:780px; margin:0 auto; padding:0 20px 72px}
+  header{background:#12140f; color:#fff; padding:56px 0 44px; margin-bottom:36px}
+  header .wrap{padding-bottom:0}
+  .brand{
+    font-size:11px; letter-spacing:.24em; text-transform:uppercase;
+    color:var(--lime); font-weight:700; margin:0 0 12px;
+  }
+  h1{font-size:clamp(24px,4vw,34px); margin:0 0 10px; font-weight:800; letter-spacing:-.02em}
+  header p{margin:0; font-size:14px; color:#a8b0a2; max-width:52ch}
+  h2{
+    font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3);
+    margin:0 0 14px; font-weight:700;
+  }
+  .list{display:flex; flex-direction:column; gap:10px; margin-bottom:40px}
+  a.doc{
+    display:block; background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:17px 20px; text-decoration:none; color:inherit; transition:.16s;
+  }
+  a.doc:hover{border-color:var(--lime); transform:translateY(-1px); box-shadow:0 3px 14px rgba(18,20,15,.06)}
+  a.doc .t{font-size:16px; font-weight:700; letter-spacing:-.01em; display:block; margin-bottom:3px}
+  a.doc .d{font-size:13px; color:var(--ink-2); display:block}
+  a.doc .m{font-size:11.5px; color:var(--ink-3); display:block; margin-top:7px; font-variant-numeric:tabular-nums}
+  .tag{
+    display:inline-block; background:var(--lime-l); color:var(--lime-d);
+    font-size:11px; font-weight:700; padding:2px 8px; border-radius:99px; margin-right:6px;
+  }
+  .note{
+    background:#fff; border:1px solid var(--line); border-left:3px solid var(--lime);
+    border-radius:0 10px 10px 0; padding:14px 18px; font-size:13px; color:var(--ink-2);
+  }
+  .note b{color:var(--ink)}
+  footer{margin-top:36px; padding-top:20px; border-top:1px solid var(--line); font-size:12px; color:var(--ink-3)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="brand">T.O.P · trust · oracle · people</p>
+    <h1>문서 허브</h1>
+    <p>여행 코스, 가이드, 참고 자료를 링크 하나로 열어보는 공간입니다. 고객 자료와 기밀 문서는 이곳에 두지 않습니다.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <h2>여행 · 나들이</h2>
+  <div class="list">
+    <a class="doc" href="chuncheon-daytrip.html">
+      <span class="t">🐾 여의도 → 춘천 등선폭포 당일치기</span>
+      <span class="d">반려견 동반 왕복 코스 · 등선폭포 계곡길, 삼악산 호수케이블카, 강아지숲, 애견동반 맛집 8곳</span>
+      <span class="m"><span class="tag">반려견 동반</span><span class="tag">당일치기</span>2026.08 기준</span>
+    </a>
+  </div>
+
+  <div class="note">
+    <b>이 페이지는 검색엔진에 노출되지 않습니다</b> (noindex). 다만 저장소가 공개(public)이므로
+    URL을 아는 사람은 누구나 열 수 있습니다. <b>고객 개인정보가 담긴 자료는 절대 올리지 않습니다</b> —
+    절세분석 보고서·자산현황·제안서는 노션에만 보관합니다.
+  </div>
+
+  <footer>
+    top95091.github.io · GitHub Pages
+  </footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>여의도 → 춘천 등선폭포 · 반려견 동반 당일치기 코스</title>
+<style>
+  :root{
+    --ink:#1c2321;
+    --ink-2:#4a5754;
+    --ink-3:#7d8b87;
+    --line:#e2e6e3;
+    --paper:#fbfaf7;
+    --card:#ffffff;
+    --green:#2f6b4f;
+    --green-l:#e8f1eb;
+    --amber:#a86b1f;
+    --amber-l:#fbf1e2;
+    --blue:#2c5d8a;
+    --blue-l:#e7eff6;
+    --rose:#9c3b52;
+    --rose-l:#f8eaee;
+    --radius:14px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Pretendard","Noto Sans KR",sans-serif;
+    line-height:1.65; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:940px; margin:0 auto; padding:0 20px 80px}
+
+  /* ── Hero ── */
+  header.hero{
+    background:linear-gradient(160deg,#20443a 0%,#2f6b4f 55%,#3f7f5c 100%);
+    color:#fff; padding:48px 0 40px; margin-bottom:34px;
+  }
+  header.hero .wrap{padding-bottom:0}
+  .kicker{
+    font-size:12px; letter-spacing:.18em; text-transform:uppercase;
+    opacity:.75; margin:0 0 10px;
+  }
+  h1{font-size:clamp(26px,4.4vw,40px); margin:0 0 12px; line-height:1.25; font-weight:800; letter-spacing:-.02em}
+  .route-line{font-size:15px; opacity:.9; margin:0 0 22px}
+  .hero-stats{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px}
+  .hero-stat{
+    background:rgba(255,255,255,.13); border:1px solid rgba(255,255,255,.2);
+    border-radius:10px; padding:10px 14px; min-width:112px;
+  }
+  .hero-stat b{display:block; font-size:19px; font-weight:700; letter-spacing:-.01em}
+  .hero-stat span{font-size:11.5px; opacity:.8; letter-spacing:.04em}
+
+  /* ── Sections ── */
+  section{margin:0 0 42px}
+  h2{
+    font-size:20px; margin:0 0 6px; font-weight:750; letter-spacing:-.01em;
+    display:flex; align-items:center; gap:9px;
+  }
+  h2 .num{
+    display:inline-flex; align-items:center; justify-content:center;
+    width:25px; height:25px; border-radius:7px; background:var(--green);
+    color:#fff; font-size:12.5px; font-weight:700; flex:none;
+  }
+  .sub{color:var(--ink-3); font-size:13.5px; margin:0 0 18px; padding-left:34px}
+
+  /* ── Timeline ── */
+  .tl{position:relative; padding-left:0}
+  .stop{
+    display:grid; grid-template-columns:74px 1fr; gap:0 18px;
+    position:relative; padding-bottom:18px;
+  }
+  .stop:last-child{padding-bottom:0}
+  .stop::before{
+    content:""; position:absolute; left:74px; top:26px; bottom:-4px; width:2px;
+    background:linear-gradient(180deg,var(--line),var(--line)); transform:translateX(-9px);
+  }
+  .stop:last-child::before{display:none}
+  .time{
+    text-align:right; padding-top:16px; font-variant-numeric:tabular-nums;
+    font-size:14px; font-weight:700; color:var(--green); white-space:nowrap;
+  }
+  .time small{display:block; font-weight:500; color:var(--ink-3); font-size:11px; letter-spacing:.02em}
+  .card{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+    padding:16px 18px; position:relative;
+  }
+  .card::before{
+    content:""; position:absolute; left:-27px; top:20px; width:11px; height:11px;
+    border-radius:50%; background:#fff; border:3px solid var(--green);
+  }
+  .card.move{background:#f4f6f4; border-style:dashed; padding:11px 16px}
+  .card.move::before{border-color:var(--ink-3); width:9px; height:9px; top:16px; left:-26px}
+  .card.move p{margin:0; font-size:13px; color:var(--ink-2)}
+  .card h3{margin:0 0 4px; font-size:16.5px; font-weight:750; letter-spacing:-.01em}
+  .card h3 a{color:inherit; text-decoration:none; border-bottom:1.5px solid var(--green-l)}
+  .card h3 a:hover{border-bottom-color:var(--green)}
+  .meta{font-size:12.5px; color:var(--ink-3); margin:0 0 9px}
+  .card p.body{margin:0 0 10px; font-size:14px; color:var(--ink-2)}
+  .card p.body:last-child{margin-bottom:0}
+  .facts{
+    display:flex; flex-wrap:wrap; gap:6px 8px; margin:10px 0 0;
+    padding-top:10px; border-top:1px dashed var(--line);
+  }
+  .fact{font-size:12px; color:var(--ink-2); background:#f6f7f6; border-radius:6px; padding:3px 8px}
+  .fact b{color:var(--ink); font-weight:650}
+
+  /* ── Badges ── */
+  .badges{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 9px}
+  .b{font-size:11.5px; font-weight:650; padding:3px 9px; border-radius:99px; letter-spacing:.01em}
+  .b-ok{background:var(--green-l); color:var(--green)}
+  .b-warn{background:var(--amber-l); color:var(--amber)}
+  .b-info{background:var(--blue-l); color:var(--blue)}
+  .b-no{background:var(--rose-l); color:var(--rose)}
+
+  /* ── Tables ── */
+  .tbl-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius); background:#fff}
+  table{border-collapse:collapse; width:100%; font-size:13.5px; min-width:560px}
+  th,td{padding:11px 14px; text-align:left; border-bottom:1px solid var(--line); vertical-align:top}
+  th{background:#f4f6f4; font-weight:700; font-size:12px; letter-spacing:.03em; color:var(--ink-2); white-space:nowrap}
+  tr:last-child td{border-bottom:none}
+  td.num{text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+  tfoot td{font-weight:750; background:#f9faf9; border-top:2px solid var(--line)}
+  .tname{font-weight:700}
+  .tname a{color:var(--ink); text-decoration:none; border-bottom:1.5px solid var(--green-l)}
+  .tname a:hover{border-bottom-color:var(--green)}
+  .tsub{display:block; font-weight:400; font-size:12px; color:var(--ink-3); margin-top:2px}
+
+  /* ── Option grid ── */
+  .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(258px,1fr)); gap:14px}
+  .opt{background:#fff; border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px}
+  .opt h4{margin:0 0 6px; font-size:15px; font-weight:750}
+  .opt .tag{font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--ink-3); display:block; margin-bottom:7px}
+  .opt p{margin:0; font-size:13.5px; color:var(--ink-2)}
+  .opt.b-plan{border-color:#d8e5dd; background:linear-gradient(180deg,#fff,#f7fbf8)}
+
+  /* ── Checklist ── */
+  .check{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:9px}
+  .chk{
+    display:flex; align-items:flex-start; gap:10px; background:#fff; border:1px solid var(--line);
+    border-radius:10px; padding:11px 13px; cursor:pointer; font-size:13.5px; transition:.15s;
+  }
+  .chk:hover{border-color:#c5d3cb; background:#fcfdfc}
+  .chk input{margin:3px 0 0; accent-color:var(--green); width:15px; height:15px; flex:none; cursor:pointer}
+  .chk.done{background:var(--green-l); border-color:#cde0d5}
+  .chk.done span{text-decoration:line-through; color:var(--ink-3)}
+  .chk b{display:block; font-weight:650}
+  .chk em{font-style:normal; color:var(--ink-3); font-size:12px}
+
+  /* ── Callouts ── */
+  .note{
+    border-left:3px solid var(--amber); background:var(--amber-l);
+    padding:13px 16px; border-radius:0 10px 10px 0; font-size:13.5px; color:#5f4413; margin:16px 0 0;
+  }
+  .note b{color:#4a340d}
+  .note.blue{border-left-color:var(--blue); background:var(--blue-l); color:#1f4463}
+  .note.blue b{color:#17334a}
+  .note ul{margin:7px 0 0; padding-left:18px}
+  .note li{margin:3px 0}
+
+  /* ── Sources ── */
+  .src{font-size:12px; color:var(--ink-3); line-height:1.9}
+  .src a{color:var(--ink-2)}
+  footer{border-top:1px solid var(--line); padding-top:22px; margin-top:44px}
+
+  @media (max-width:620px){
+    .stop{grid-template-columns:58px 1fr; gap:0 14px}
+    .stop::before{left:58px; transform:translateX(-7px)}
+    .card::before{left:-22px; width:9px; height:9px; border-width:2.5px}
+    .card.move::before{left:-21px}
+    .time{font-size:13px}
+  }
+  @media print{
+    body{background:#fff}
+    header.hero{background:#2f6b4f !important; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+    .wrap{max-width:none}
+    section{page-break-inside:avoid}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">Day Trip Plan · 여의도 리미티오 → 춘천</p>
+    <h1>등선폭포 계곡길 하루 코스<br>— 탑 · 아내 · 구마 </h1>
+    <p class="route-line">여의도 → 올림픽대로 → 서울양양고속도로 → 강촌IC → 강촌 · 서면 일대 왕복</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><b>약 95km</b><span>편도 거리</span></div>
+      <div class="hero-stat"><b>1시간 20~40분</b><span>편도 운전</span></div>
+      <div class="hero-stat"><b>4곳</b><span>반려견 동반 스팟</span></div>
+      <div class="hero-stat"><b>7~9만원</b><span>2인+1견 예상</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- 1. 타임라인 -->
+<section>
+  <h2><span class="num">1</span>당일 동선 타임라인</h2>
+  <p class="sub">아침 서늘할 때 계곡 → 한낮은 실내·케이블카 → 오후는 오프리쉬 놀이터 순서로 짰습니다. 구마 체력에 따라 ⑥번은 빼도 됩니다.</p>
+
+  <div class="tl">
+
+    <div class="stop">
+      <div class="time">07:40<small>출발</small></div>
+      <div class="card">
+        <h3>여의도 리미티오 출발</h3>
+        <p class="meta">출발 전 배변 산책 10분 · 차량 방석/하네스 세팅</p>
+        <p class="body">주말 올림픽대로는 8시 넘어가면 강일IC까지 정체가 붙습니다. 7시 40분에 나서면 정체 없이 한 번에 빠집니다. 구마는 출발 2시간 전 급여를 마치고 차에서는 공복 상태가 멀미에 유리합니다.</p>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="card move"><p>🚗 <b>올림픽대로 → 강일IC → 서울양양고속도로 → 강촌IC</b> · 약 95km / 1시간 20~40분 · 중간 <b>가평휴게소</b>에서 5분 배변 휴식</p></div>
+      <div class="time"></div>
+    </div>
+
+    <div class="stop">
+      <div class="time">09:10<small>1시간</small></div>
+      <div class="card">
+        <h3><a href="https://map.naver.com/p/search/%EA%B0%95%EC%B4%8C%20%EB%AC%BC%EA%B9%A8%EB%A7%90%EC%A0%95%EC%9B%90" target="_blank" rel="noopener">강촌 물깨말정원 + 등선교 출렁다리</a></h3>
+        <p class="meta">춘천시 남산면 강촌리 일원 · 2026년 8월 6일 신규 개장</p>
+        <div class="badges">
+          <span class="b b-ok">야외 개방형</span>
+          <span class="b b-ok">무료</span>
+          <span class="b b-info">평지 산책</span>
+        </div>
+        <p class="body">이번 여름에 막 문을 연 따끈한 신상 정원입니다. 약 2,000㎡ 규모에 기찻길 산책로·암석원·피크닉테이블·데크광장이 들어섰고, 데크광장에서 <b>폭 2m·길이 58m의 등선교(출렁다리)</b>로 바로 이어집니다. 사람이 아직 덜 몰려서 첫 코스로 몸 푸는 데 딱 좋습니다.</p>
+        <p class="body">출렁다리는 바닥이 뚫린 구조는 아니지만 흔들림이 있어, 겁 많은 강아지는 안고 건너는 편이 안전합니다.</p>
+        <div class="facts">
+          <span class="fact"><b>소요</b> 정원 20~30분 / 출렁다리 연계 약 1시간</span>
+          <span class="fact"><b>입장료</b> 없음</span>
+          <span class="fact"><b>난이도</b> 평지·유모차 가능</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="card move"><p>🚗 <b>강촌 → 삼악산 등선폭포 매표소</b> · 경춘로 따라 약 4km / 8분</p></div>
+      <div class="time"></div>
+    </div>
+
+    <div class="stop">
+      <div class="time">10:20<small>1시간 20분</small></div>
+      <div class="card">
+        <h3><a href="https://map.naver.com/p/search/%EB%93%B1%EC%84%A0%ED%8F%AD%ED%8F%AC" target="_blank" rel="noopener">삼악산 등선폭포 계곡길 ★ 오늘의 메인</a></h3>
+        <p class="meta">춘천시 서면 경춘로 1401-25 · 매표소 033-262-2215</p>
+        <div class="badges">
+          <span class="b b-ok">협곡 그늘길</span>
+          <span class="b b-info">왕복 1시간 내외</span>
+          <span class="b b-warn">계단·바위 구간 있음</span>
+        </div>
+        <p class="body">매표소에서 <b>10~15분</b>만 걸으면 첫 폭포가 나옵니다. 여기서 끝내지 말고 <b>등선폭포 → 옥녀담 → 비룡폭포</b>까지 15~20분 더 올라가세요. 양옆이 수직 협곡이라 한여름에도 체감온도가 확 떨어지고, 물소리 때문에 구마 발밑이 시원합니다. 그 위 흥국사·정상 방향은 본격 등산이니 오늘은 올라가지 않습니다.</p>
+        <p class="body">바위 계단과 좁은 철제 다리가 반복되므로 <b>짧은 리드줄(1~1.5m)</b>로 바짝 잡고, 젖은 바위에서 미끄러지지 않게 발바닥 패드 상태를 중간에 한 번 확인해 주세요.</p>
+        <div class="facts">
+          <span class="fact"><b>입장료</b> 어른 2,000원 (춘천사랑상품권으로 되돌려 줌 → 사실상 무료)</span>
+          <span class="fact"><b>주차</b> 202면 · 소형 2,000원</span>
+          <span class="fact"><b>운영</b> 08:00~17:00</span>
+          <span class="fact"><b>65세 이상·6세 이하</b> 무료</span>
+        </div>
+        <div class="note">
+          <b>계곡 물놀이는 신중하게.</b> 등선폭포 구간은 협곡 안쪽이라 비 온 다음 날에는 수량이 급격히 불어납니다. 구마를 물에 들여보낼 거면 매표소 아래쪽 완만한 여울에서, 젖은 뒤에는 반드시 수건으로 말려 차에 태우세요.
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="card move"><p>🚗 <b>등선폭포 → 점심 장소</b> · 아래 ‘맛집’ 표에서 구마 체급에 맞춰 선택 (10~25분)</p></div>
+      <div class="time"></div>
+    </div>
+
+    <div class="stop">
+      <div class="time">12:00<small>1시간 20분</small></div>
+      <div class="card">
+        <h3>점심 — 춘천 닭갈비 / 막국수</h3>
+        <p class="meta">반려견 동반 조건이 가게마다 다릅니다 · 아래 3번 섹션 참고</p>
+        <div class="badges">
+          <span class="b b-warn">방문 전 전화 확인 권장</span>
+        </div>
+        <p class="body">한여름 낮 12시~14시는 아스팔트가 가장 뜨거운 시간대라 어차피 밖을 걷기 어렵습니다. 이때를 식사로 채우는 게 동선상 가장 효율적입니다. 야외 테라스형이면 그늘 자리를, 실내 동반형이면 <b>이동가방/매너벨트</b>를 챙기세요.</p>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="card move"><p>🚗 <b>→ 삼악산 호수케이블카 하부승강장</b> (춘천시 서면) · 10~20분</p></div>
+      <div class="time"></div>
+    </div>
+
+    <div class="stop">
+      <div class="time">13:40<small>1시간 30분</small></div>
+      <div class="card">
+        <h3><a href="https://map.naver.com/p/search/%EC%82%BC%EC%95%85%EC%82%B0%20%ED%98%B8%EC%88%98%EC%BC%80%EC%9D%B4%EB%B8%94%EC%B9%B4" target="_blank" rel="noopener">삼악산 호수케이블카</a></h3>
+        <p class="meta">국내 최장 3.61km · 의암호를 가로질러 삼악산 중턱까지</p>
+        <div class="badges">
+          <span class="b b-ok">반려견 탑승 무료</span>
+          <span class="b b-warn">45kg 이상 탑승 불가</span>
+          <span class="b b-no">크리스탈 캐빈 불가</span>
+        </div>
+        <p class="body">오늘 코스의 하이라이트 뷰. 아침에 걸어 올라간 삼악산과 등선폭포 능선을, 오후에는 공중에서 내려다보는 구성입니다. 아내분이 가장 좋아할 구간이고 사진도 여기서 나옵니다.</p>
+        <p class="body"><b>반려견 규정이 꽤 구체적입니다.</b> 소형견(~12kg)은 보호자 1인당 2마리, 중형(13~25kg)·대형(26~45kg)은 1인당 1마리까지. <b>2년 이내 광견병 접종 확인</b>이 필요하니 접종 증명 사진을 휴대폰에 미리 저장해 두세요. 전 구간 1.5m 이내 리드줄 필수, 중성화하지 않았다면 매너벨트 착용이 필수입니다. 일행끼리만 탑승시켜 주니 다른 손님과 섞일 걱정은 없습니다.</p>
+        <div class="facts">
+          <span class="fact"><b>왕복</b> 일반 캐빈 대인 24,000원</span>
+          <span class="fact"><b>반려견</b> 무료</span>
+          <span class="fact"><b>5~10월 운영</b> 평일 09:00~20:00 / 토 09:00~21:00</span>
+          <span class="fact"><b>주의</b> 상부 실내 카페 입장 불가 · 야외테이블·편의점만 이용</span>
+        </div>
+        <div class="note blue">
+          리드줄·매너벨트를 깜빡했다면 <b>하부승강장 1층 편의점</b>에서 구매할 수 있습니다. 맹견 및 공격성 있는 견종은 탑승이 제한됩니다.
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="card move"><p>🚗 <b>→ 강아지숲</b> (춘천시 남산면 충효로 437) · 약 20분 · 남춘천IC 방향이라 귀갓길과 겹칩니다</p></div>
+      <div class="time"></div>
+    </div>
+
+    <div class="stop">
+      <div class="time">15:40<small>1시간 40분</small></div>
+      <div class="card">
+        <h3><a href="https://map.naver.com/p/search/%EA%B0%95%EC%95%84%EC%A7%80%EC%88%B2" target="_blank" rel="noopener">강아지숲 — 구마의 시간</a></h3>
+        <p class="meta">춘천시 남산면 충효로 437 · <b>월요일 휴무</b> · 10:00~21:00</p>
+        <div class="badges">
+          <span class="b b-ok">오프리쉬 잔디 운동장</span>
+          <span class="b b-ok">3만평 반려견 전용</span>
+          <span class="b b-warn">요금 변동 가능 · 사전 확인</span>
+        </div>
+        <p class="body">하루 종일 리드줄에 묶여 있던 구마에게 주는 보상 구간입니다. 국내 최대 규모 반려견 테마파크로, 넓은 잔디 운동장에서 오프리쉬가 가능하고 산자락 산책로와 밟으면 소리 나는 피아노 건반 길 같은 놀이 요소가 있습니다. 사람은 그늘 벤치에서 쉬면 되니 부부 체력 회복 구간이기도 합니다.</p>
+        <div class="facts">
+          <span class="fact"><b>주간</b> 성인 17,000원 · 반려견 8,000원</span>
+          <span class="fact"><b>야간(16시 이후)</b> 성인 12,000원 · 반려견 6,000원</span>
+          <span class="fact"><b>Tip</b> 16시 이후 입장하면 1인당 5,000원 절약</span>
+        </div>
+        <div class="note">
+          <b>16시 이후 입장이 유리합니다.</b> 케이블카에서 조금 여유 부리고 16시 조금 넘겨 들어가면 야간 요금이 적용돼 <b>2인+1견 기준 약 12,000원</b>이 절약되고, 해질녘이라 잔디가 시원해 구마가 훨씬 잘 뜁니다. 다만 요금·휴무는 변동될 수 있으니 출발 전 한 번 확인하세요.
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="time">17:30<small>1시간</small></div>
+      <div class="card">
+        <h3>커피 한 잔 &amp; 감자빵 포장</h3>
+        <p class="meta">여유가 있으면 신북읍 방향, 바로 갈 거면 강촌 카페</p>
+        <p class="body">아내분 몫의 마무리 코스. <b>카페 감자밭</b>(신북읍 신샘밭로 674)은 감자 모양 감자빵으로 유명하고 야외 정원이 예쁘지만 <b>10kg 미만·리드줄 착용 견만 야외 정원에서만</b> 동반 가능합니다. 구마가 그 이상이면 한 명이 차에서 대기하고 포장만 하는 편이 낫습니다.</p>
+        <p class="body">대신 구마까지 편한 선택은 <b>달콤한 게으름</b>(신북읍 신샘밭로 502) — 실내는 못 들어가지만 <b>울타리 쳐진 잔디마당에서 오프리쉬</b>가 되고 브런치가 나옵니다. 11:00~22:00 운영.</p>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="time">18:40<small>귀가</small></div>
+      <div class="card">
+        <h3>춘천 출발 → 여의도 도착 (약 20:10)</h3>
+        <p class="meta">남춘천IC 또는 강촌IC 진입</p>
+        <p class="body">일요일이라면 15~18시가 서울 방향 정체 피크입니다. 18시 30분 이후 출발하면 대체로 풀립니다. 정체가 심하면 <b>경춘로 국도</b>로 가평까지 빠졌다가 설악IC에서 다시 고속도로를 타는 우회가 유효합니다. 도착 후 구마 발 세척과 진드기 체크는 잊지 마세요.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 2. 대안 -->
+<section>
+  <h2><span class="num">2</span>상황별 갈아끼우기</h2>
+  <p class="sub">날씨·구마 컨디션에 따라 위 코스에서 한 칸씩 교체하는 카드입니다.</p>
+  <div class="grid">
+    <div class="opt b-plan">
+      <span class="tag">비가 온다면</span>
+      <h4>등선폭포 → 구곡폭포 대체 ✕</h4>
+      <p>둘 다 계곡이라 비 오면 위험합니다. 이 경우 <b>케이블카 + 강아지숲</b> 2개만 남기고 시간을 넉넉히 쓰세요. 협곡은 비 온 다음 날에도 수량이 불어 미끄럽습니다.</p>
+    </div>
+    <div class="opt b-plan">
+      <span class="tag">구마가 더 뛰고 싶다면</span>
+      <h4><a href="https://map.naver.com/p/search/%EA%B5%AC%EA%B3%A1%ED%8F%AD%ED%8F%AC" target="_blank" rel="noopener" style="color:inherit">구곡폭포 → 문배마을</a></h4>
+      <p>남산면 강촌구곡길 254 · 09:00~17:00 · 입장 2,000원(상품권 환급) · 주차 2,000원. 폭포에서 <b>문배마을까지 편도 40분</b> 흙길 산책이 이어집니다. 등선폭포보다 길이 넓고 완만합니다.</p>
+    </div>
+    <div class="opt b-plan">
+      <span class="tag">아침을 늦게 시작했다면</span>
+      <h4>물깨말정원 생략</h4>
+      <p>10시 이후 도착이라면 등선폭포부터 시작하세요. 물깨말정원·출렁다리는 케이블카 이후 오후에 들러도 무료 개방형이라 시간에 걸리지 않습니다.</p>
+    </div>
+    <div class="opt b-plan">
+      <span class="tag">가평에서 점심을 먹는다면</span>
+      <h4>본가 곱돌 숯불닭갈비</h4>
+      <p>가평 아침고요수목원 인근. <b>대형견 동반 가능</b>하고 테이블 옆에 강아지 전용 침대를 놔 주며 실외 운동장도 있습니다. 구마가 대형견이면 오늘 코스 중 가장 안전한 식사 선택지입니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- 3. 맛집 -->
+<section>
+  <h2><span class="num">3</span>동선 위 반려견 동반 맛집·카페</h2>
+  <p class="sub">체급 조건이 제각각입니다. 구마 체중 기준으로 한 줄 고르시면 됩니다. 정책은 수시로 바뀌니 <b>방문 전 전화 확인</b>을 권합니다.</p>
+  <div class="tbl-wrap">
+  <table>
+    <thead>
+      <tr><th>이름</th><th>위치</th><th>동반 조건</th><th>메모</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="tname"><a href="https://map.naver.com/p/search/%EB%B3%B8%EA%B0%80%20%EA%B3%B1%EB%8F%8C%20%EC%88%AF%EB%B6%88%EB%8B%AD%EA%B0%88%EB%B9%84" target="_blank" rel="noopener">본가 곱돌 숯불닭갈비</a><span class="tsub">닭갈비</span></td>
+        <td>가평 · 아침고요수목원 인근</td>
+        <td><span class="b b-ok">대형견 OK</span> 실내 동반 · 전용 침대 제공</td>
+        <td>실외 운동장까지 있음. 대형견이면 1순위</td>
+      </tr>
+      <tr>
+        <td class="tname"><a href="https://map.naver.com/p/search/%ED%95%A0%EB%A7%A4%EC%B6%98%EC%B2%9C%EB%8B%AD%EA%B0%88%EB%B9%84" target="_blank" rel="noopener">할매 춘천닭갈비</a><span class="tsub">닭갈비</span></td>
+        <td>가평역 도보 10분 · 남이섬 근처</td>
+        <td><span class="b b-ok">실내 반려견 동반존</span> 별도 구역</td>
+        <td>오가는 길목이라 접근성 최고</td>
+      </tr>
+      <tr>
+        <td class="tname"><a href="https://map.naver.com/p/search/%EC%B6%98%EC%B2%9C%20%EC%BD%A7%EB%8B%AD%EA%B3%A0%20%EC%88%AF%EB%B6%88%EB%8B%AD%EA%B0%88%EB%B9%84" target="_blank" rel="noopener">콧닭고 숯불닭갈비</a><span class="tsub">닭갈비</span></td>
+        <td>춘천 신북읍</td>
+        <td><span class="b b-warn">중형견까지</span> 야외 텐트석</td>
+        <td>캠핑 컨셉 프라이빗 텐트 · 삼색 닭갈비</td>
+      </tr>
+      <tr>
+        <td class="tname"><a href="https://map.naver.com/p/search/%EC%83%98%ED%86%A0%20%EC%B0%B8%EC%88%AF%20%EB%8B%AD%EA%B0%88%EB%B9%84%20%ED%81%B0%EC%95%84%EB%93%A4%EB%84%A4" target="_blank" rel="noopener">샘토 참숯 닭갈비 큰아들네</a><span class="tsub">닭갈비</span></td>
+        <td>춘천 신북읍 · 소양강변</td>
+        <td><span class="b b-warn">소형견</span> 야외 테라스 · 이동가방</td>
+        <td>리버뷰 + 식후 강변 산책 연계</td>
+      </tr>
+      <tr>
+        <td class="tname"><a href="https://map.naver.com/p/search/%EC%B6%98%EC%B2%9C%20%EB%B3%84%EB%8B%B9%EB%A7%89%EA%B5%AD%EC%88%98" target="_blank" rel="noopener">별당 막국수</a><span class="tsub">막국수</span></td>
+        <td>춘천 약사동 (시내)</td>
+        <td><span class="b b-warn">소형견</span> 실내 · 이동가방 필수</td>
+        <td>한옥 분위기 · 김치수육, 메밀전병</td>
+      </tr>
+      <tr>
+        <td class="tname"><a href="https://map.naver.com/p/search/%EC%B6%98%EC%B2%9C%20%EB%8B%AC%EC%BD%A4%ED%95%9C%20%EA%B2%8C%EC%9C%BC%EB%A6%84" target="_blank" rel="noopener">달콤한 게으름</a><span class="tsub">브런치 카페</span></td>
+        <td>신북읍 신샘밭로 502</td>
+        <td><span class="b b-ok">오프리쉬 잔디마당</span> <span class="b b-no">실내 불가</span></td>
+        <td>울타리 완비 · 11:00~22:00 · 넓은 주차장</td>
+      </tr>
+      <tr>
+        <td class="tname"><a href="https://map.naver.com/p/search/%EC%B6%98%EC%B2%9C%20%EC%89%AC%EB%9F%AC%EC%99%80" target="_blank" rel="noopener">쉬러와</a><span class="tsub">글루텐프리 디저트</span></td>
+        <td>신북읍 지내고탄로 246</td>
+        <td><span class="b b-ok">1층 실내 동반</span> 리드줄 필수 (2층 불가)</td>
+        <td>쌀 케이크 전문 · 비 오는 날 대안</td>
+      </tr>
+      <tr>
+        <td class="tname"><a href="https://map.naver.com/p/search/%EC%B9%B4%ED%8E%98%20%EA%B0%90%EC%9E%90%EB%B0%AD" target="_blank" rel="noopener">카페 감자밭</a><span class="tsub">베이커리</span></td>
+        <td>신북읍 신샘밭로 674</td>
+        <td><span class="b b-warn">10kg 미만 · 야외 정원만</span> <span class="b b-no">실내 불가</span></td>
+        <td>감자빵 명물 · 포장만 해도 충분</td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="note">
+    <b>현행법 참고.</b> 국내에서 반려동물 동반 식당은 업소 자율 정책입니다. 위 정보는 최근 후기·매체 기준이라 <b>영업 종료나 정책 변경이 있을 수 있습니다.</b> 전날 저녁에 전화로 “강아지 동반 가능한가요, 몇 kg까지 되나요” 한 번만 확인하면 현장에서 난감할 일이 없습니다.
+  </div>
+</section>
+
+<!-- 4. 예산 -->
+<section>
+  <h2><span class="num">4</span>예상 경비 (성인 2인 + 구마 1견)</h2>
+  <p class="sub">유류비는 준중형 기준 왕복 190km 환산치입니다.</p>
+  <div class="tbl-wrap">
+  <table>
+    <thead><tr><th>항목</th><th>내역</th><th class="num">금액</th></tr></thead>
+    <tbody>
+      <tr><td>유류비</td><td>왕복 약 190km</td><td class="num">약 22,000원</td></tr>
+      <tr><td>고속도로 통행료</td><td>서울양양고속도로 왕복</td><td class="num">약 10,000원</td></tr>
+      <tr><td>물깨말정원 · 출렁다리</td><td>개방형 무료</td><td class="num">0원</td></tr>
+      <tr><td>등선폭포 입장료</td><td>2,000원 × 2인 <span class="tsub">→ 춘천사랑상품권으로 전액 환급</span></td><td class="num">실질 0원</td></tr>
+      <tr><td>등선폭포 주차</td><td>소형차</td><td class="num">2,000원</td></tr>
+      <tr><td>점심</td><td>닭갈비 2인분 + 막국수</td><td class="num">약 35,000원</td></tr>
+      <tr><td>삼악산 호수케이블카</td><td>왕복 24,000원 × 2인 · 반려견 무료</td><td class="num">48,000원</td></tr>
+      <tr><td>강아지숲</td><td>야간권 기준 12,000×2 + 반려견 6,000</td><td class="num">30,000원</td></tr>
+      <tr><td>카페</td><td>음료 2 + 디저트</td><td class="num">약 20,000원</td></tr>
+    </tbody>
+    <tfoot>
+      <tr><td colspan="2">합계</td><td class="num">약 167,000원</td></tr>
+      <tr><td colspan="2" style="font-weight:600;color:var(--ink-2)">케이블카·강아지숲 중 하나만 할 경우</td><td class="num" style="font-weight:600">약 90,000~120,000원</td></tr>
+    </tfoot>
+  </table>
+  </div>
+</section>
+
+<!-- 5. 체크리스트 -->
+<section>
+  <h2><span class="num">5</span>구마 출발 전 체크리스트</h2>
+  <p class="sub">클릭하면 체크됩니다. (인쇄해서 써도 됩니다)</p>
+  <div class="check" id="checklist">
+    <label class="chk"><input type="checkbox"><span><b>짧은 리드줄 1.5m 이내</b><em>케이블카 규정 · 계곡 안전</em></span></label>
+    <label class="chk"><input type="checkbox"><span><b>광견병 접종 증명 사진</b><em>2년 이내 · 케이블카 탑승 요건</em></span></label>
+    <label class="chk"><input type="checkbox"><span><b>매너벨트</b><em>미중성화견 케이블카 필수</em></span></label>
+    <label class="chk"><input type="checkbox"><span><b>이동가방 / 슬링백</b><em>실내 동반 식당·출렁다리용</em></span></label>
+    <label class="chk"><input type="checkbox"><span><b>물그릇 + 생수</b><em>계곡물 직접 음용은 피할 것</em></span></label>
+    <label class="chk"><input type="checkbox"><span><b>큰 수건 2장</b><em>계곡 물기 · 차 시트 보호</em></span></label>
+    <label class="chk"><input type="checkbox"><span><b>배변봉투 넉넉히</b><em>계곡·정원 모두 수거 필수</em></span></label>
+    <label class="chk"><input type="checkbox"><span><b>진드기 예방약</b><em>산·잔디 코스 필수</em></span></label>
+    <label class="chk"><input type="checkbox"><span><b>발바닥 보호 밤 / 부츠</b><em>한낮 아스팔트 화상 방지</em></span></label>
+    <label class="chk"><input type="checkbox"><span><b>간식 · 사료 소분</b><em>출발 2시간 전 급여 완료</em></span></label>
+    <label class="chk"><input type="checkbox"><span><b>차량 방석 · 안전벨트 하네스</b><em>1시간 30분 이동</em></span></label>
+    <label class="chk"><input type="checkbox"><span><b>인식표 · 등록칩 확인</b><em>오프리쉬 구간 대비</em></span></label>
+  </div>
+
+  <div class="note">
+    <b>여름 당일치기 3대 주의.</b>
+    <ul>
+      <li><b>차 안 단독 대기 금지.</b> 그늘·창문 열림과 무관하게 여름 차량 내부는 10분이면 위험 온도입니다. 실내 동반이 안 되는 곳은 부부가 교대로 들어가세요.</li>
+      <li><b>아스팔트 온도 5초 테스트.</b> 손등을 5초간 못 대면 구마 발바닥도 못 견딥니다. 12~15시 아스팔트 보행은 피하고 흙길·데크로만 이동하세요.</li>
+      <li><b>계곡 하산 시간 엄수.</b> 등선폭포 매표소 운영이 17:00까지입니다. 늦어도 15시 전에는 계곡을 빠져나오는 일정으로 잡았습니다.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <p class="src">
+    <b>참고 출처</b><br>
+    · 춘천도시공사 삼악산 안내 — <a href="https://www.cuc.or.kr/samak.do" target="_blank" rel="noopener">cuc.or.kr/samak.do</a><br>
+    · 춘천도시공사 구곡폭포 안내 — <a href="https://www.cuc.or.kr/gugok.do" target="_blank" rel="noopener">cuc.or.kr/gugok.do</a><br>
+    · 삼악산 호수케이블카 반려견 탑승 안내 — <a href="https://samaksancablecar.com/home/guide/pet.php" target="_blank" rel="noopener">samaksancablecar.com</a> · <a href="https://samaksancablecar.com/home/guide/charge.php" target="_blank" rel="noopener">이용요금</a><br>
+    · 강촌 물깨말정원 개장 — <a href="https://thetravelnews.co.kr/2026/08/gangchon-mulkkaemal-garden-opening-walking-course/" target="_blank" rel="noopener">더트래블뉴스 (2026.08)</a><br>
+    · 애견동반 맛집·카페 — <a href="https://ban-life.com/content/view?id=7071" target="_blank" rel="noopener">반려생활 춘천 편</a> · <a href="https://ban-life.com/content/view?id=9908" target="_blank" rel="noopener">가평·춘천 닭갈비 편</a> · <a href="https://ban-life.com/content/view?id=6364" target="_blank" rel="noopener">카페 감자밭</a> · <a href="https://www.ban-life.com/content/view?id=8713" target="_blank" rel="noopener">달콤한 게으름</a> · <a href="https://ban-life.com/content/view?id=12161" target="_blank" rel="noopener">쉬러와</a><br>
+    · 강아지숲 — <a href="https://www.dforest.co.kr/" target="_blank" rel="noopener">공식 홈페이지</a> · <a href="https://www.ban-life.com/content/view?id=7984" target="_blank" rel="noopener">방문기</a><br>
+    · 삼악산 등선폭포 입장·주차 — <a href="https://trip.ad-su.com/51" target="_blank" rel="noopener">지구 한바퀴</a>
+  </p>
+  <p class="src" style="margin-top:14px">
+    요금·운영시간·반려견 정책은 <b>2026년 8월 기준</b>으로 정리했으며 변동될 수 있습니다. 출발 전날 케이블카·강아지숲·식당 세 곳만 전화 확인하시면 충분합니다.
+  </p>
+</footer>
+
+</div>
+
+<script>
+  document.getElementById('checklist').addEventListener('change', function(e){
+    if(e.target.type === 'checkbox'){
+      e.target.closest('.chk').classList.toggle('done', e.target.checked);
+    }
+  });
+</script>
+
+</body>
+</html>
